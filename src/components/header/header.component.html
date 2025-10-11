@@ -1,0 +1,41 @@
+<header 
+  [class]="'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ' + (isScrolled() || isMenuOpen() ? 'bg-black/80 backdrop-blur-sm' : 'bg-transparent')">
+  <nav class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <a href="#home" (click)="scrollTo('home', $event)" class="text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-400 to-yellow-300">
+        ElitePro
+      </a>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        @for (link of navLinks; track link.label) {
+          <a href="#{{link.sectionId}}" (click)="scrollTo(link.sectionId, $event)" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300 tracking-wide font-medium">{{ link.label }}</a>
+        }
+        <button class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a9 9 0 0112.728 0m-2.828 9.9a5 5 0 01-7.072 0" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="md:hidden">
+        <button (click)="toggleMenu()" class="text-gray-200 focus:outline-none">
+          @if (!isMenuOpen()) {
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+          } @else {
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          }
+        </button>
+      </div>
+    </div>
+
+    @if (isMenuOpen()) {
+      <div class="md:hidden mt-4">
+        <div class="flex flex-col space-y-4 items-center">
+           @for (link of navLinks; track link.label) {
+            <a href="#{{link.sectionId}}" (click)="scrollTo(link.sectionId, $event)" class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 tracking-wide font-medium py-2">{{ link.label }}</a>
+          }
+        </div>
+      </div>
+    }
+  </nav>
+</header>
